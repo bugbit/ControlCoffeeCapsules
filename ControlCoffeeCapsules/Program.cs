@@ -1,11 +1,24 @@
-﻿using ControlCoffeeCapsules.Properties;
-using static System.Console;
+﻿using ControlCoffeeCapsules;
 
-// See https://aka.ms/new-console-template for more information
-var quit = false;
+var commandHandler = new CommandHandler();
 
 WriteLine(Resources.ResourceManager.GetString("Welcome"));
+
+await commandHandler.ExecuteAsync(Commands.Help);
+await commandHandler.ExecuteAsync(Commands.Load);
+await commandHandler.ExecuteAsync(Commands.Show);
+
+Command cmd = new();
+
 do
 {
+    WriteLine(Resources.ResourceManager.GetString("CommandMsg"));
 
-} while (!quit);
+    var line = ReadLine();
+
+    if (!string.IsNullOrEmpty(line))
+    {
+        cmd.Parse(line);
+        await commandHandler.ExecuteAsync(cmd);
+    }
+} while (!commandHandler.IsQuit);

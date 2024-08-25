@@ -118,21 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Welcome" xml:space="preserve">
-    <value>Bienvenido a la aplicación para controlar las capsulas nespreso</value>
+    <value>Welcome to Control Coffee Capsules</value>
   </data>
   <data name="HelpUseCmd" xml:space="preserve">
-    <value>Muestra esta ayuda</value>
+    <value>Shows this help</value>
   </data>
   <data name="UseMsg" xml:space="preserve">
-    <value>Use los siguientes comandos:</value>
+    <value>Use the following commands:</value>
   </data>
   <data name="CmdNotFound" xml:space="preserve">
-    <value>Error. Usar show</value>
+    <value>Error. Use SHOW</value>
   </data>
   <data name="ShowUseCmd" xml:space="preserve">
-    <value>Mostrar cápsulas de información</value>
+    <value>Show info capsules</value>
   </data>
   <data name="QuitUseCmd" xml:space="preserve">
-    <value>Aplicación cerrada</value>
+    <value>Close application</value>
   </data>
 </root>

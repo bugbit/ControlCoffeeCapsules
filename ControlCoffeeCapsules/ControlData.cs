@@ -1,4 +1,8 @@
 ﻿namespace ControlCoffeeCapsules;
 
-public record ControlData(int capsules,int capsulesToKit);
+public class ControlData
+{
+    public int Capsules { get; set; }
+    public int CapsulesToKit { get; set; }
+}
 

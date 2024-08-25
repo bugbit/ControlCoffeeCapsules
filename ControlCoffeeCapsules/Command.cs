@@ -3,7 +3,7 @@
 public struct Command
 {
     public string cmd;
-    public string[] args;
+    public string[]? args;
 
     public void Parse(string line)
     {

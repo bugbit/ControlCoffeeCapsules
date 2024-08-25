@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ControlCoffeeCapsules": {
+      "commandName": "Project",
+      "commandLineArgs": "es"
+    }
+  }
+}

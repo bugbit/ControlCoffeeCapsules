@@ -100,4 +100,22 @@
   <data name="Welcome" xml:space="preserve">
     <value>Welcome to Control Coffee Capsules</value>
   </data>
+  <data name="HelpUseCmd" xml:space="preserve">
+    <value>Shows this help</value>
+  </data>
+  <data name="UseMsg" xml:space="preserve">
+    <value>Use the following commands:</value>
+  </data>
+  <data name="CmdNotFound" xml:space="preserve">
+    <value>Error. Use SHOW</value>
+  </data>
+  <data name="ShowUseCmd" xml:space="preserve">
+    <value>Show info capsules</value>
+  </data>
+  <data name="QuitUseCmd" xml:space="preserve">
+    <value>Close application</value>
+  </data>
+  <data name="CommandMsg" xml:space="preserve">
+    <value></value>
+  </data>
 </root>
