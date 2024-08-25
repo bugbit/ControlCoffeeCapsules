@@ -16,9 +16,11 @@ public class ControlCoffeeCapsules : MonoBehaviour
     [SerializeField] private Button editCapsulesButton;
     [SerializeField] private Button editCapsulesKitButton;
     [SerializeField] private Button decalcificationButtonButton;
+    [SerializeField] private Text fileDataPathText;
     [Header("Other")]
     [SerializeField] private Color[] colorsInfo;
     [Header("Debug")]
+    [SerializeField] private string fileDataPath;
     [SerializeField] private ControlData controlData;
     [SerializeField] private int capsulesRemain;
 
@@ -57,18 +59,27 @@ public class ControlCoffeeCapsules : MonoBehaviour
     {
         DisableButtons();
 
-        var task = LoadDataAsync();
-
-        while (!task.IsCompleted)
+        try
         {
-            yield return null;
+            SetFileDataPath();
+
+            ShowFileDataPath();
+
+            var task = LoadDataAsync();
+
+            while (!task.IsCompleted)
+            {
+                yield return null;
+            }
+
+            ShowCapsules();
+            ShowCapsulesKit();
+            ShowCapsulesInfo();
         }
-
-        ShowCapsules();
-        ShowCapsulesKit();
-        ShowCapsulesInfo();
-
-        EnableButtons();
+        finally
+        {
+            EnableButtons();
+        }
     }
 
     void EnableButtons()
@@ -87,13 +98,22 @@ public class ControlCoffeeCapsules : MonoBehaviour
         decalcificationButtonButton.interactable = false;
     }
 
+    void SetFileDataPath()
+    {
+        fileDataPath = Application.persistentDataPath + "/ControlCoffeeCapsules.data";
+
+        Debug.Log($"FileDataPath: {fileDataPath}");
+    }
+
+    void ShowFileDataPath()
+    {
+        fileDataPathText.text = fileDataPath;
+    }
+
     async Task LoadDataAsync()
     {
-        string filePath = Application.persistentDataPath + "/ControlCoffeeCapsules.data";
-        Debug.Log("Cargado desde: " + filePath);
-
         string jsonString;
-        using (StreamReader sr = new StreamReader(filePath))
+        using (StreamReader sr = new StreamReader(fileDataPath))
         {
             jsonString = await sr.ReadToEndAsync();
             sr.Close();
@@ -107,11 +127,9 @@ public class ControlCoffeeCapsules : MonoBehaviour
 
     async Task SaveDataAsync()
     {
-        string filePath = Application.persistentDataPath + "/ControlCoffeeCapsules.data";
         string jsonString = JsonUtility.ToJson(controlData);
-        Debug.Log("Guardado en: " + filePath);
 
-        using (StreamWriter sw = new StreamWriter(filePath))
+        using (StreamWriter sw = new StreamWriter(fileDataPath))
         {
             await sw.WriteLineAsync(jsonString);
             sw.Close();
