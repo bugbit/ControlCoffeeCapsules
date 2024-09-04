@@ -17,6 +17,7 @@ public class ControlCoffeeCapsules : MonoBehaviour
     [SerializeField] private Button editCapsulesKitButton;
     [SerializeField] private Button decalcificationButtonButton;
     [SerializeField] private Text fileDataPathText;
+    [SerializeField] private GameObject backUpPanel;
     [Header("Other")]
     [SerializeField] private Color[] colorsInfo;
     [Header("Debug")]
@@ -57,6 +58,7 @@ public class ControlCoffeeCapsules : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     IEnumerator Start()
     {
+        HiddenPanelsStart();
         DisableButtons();
 
         try
@@ -80,6 +82,11 @@ public class ControlCoffeeCapsules : MonoBehaviour
         {
             EnableButtons();
         }
+    }
+
+    private void HiddenPanelsStart()
+    {
+        backUpPanel.SetActive(false);
     }
 
     void EnableButtons()
