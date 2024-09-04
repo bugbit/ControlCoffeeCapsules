@@ -11,6 +11,8 @@ public class ControlCoffeeCapsules : MonoBehaviour
 {
     const string fileNameControlCoffeeCapsulesData = "ControlCoffeeCapsules.data";
     const string fileBackUpDataPathKey = "fileBackUpDataPath";
+    const string autoBackUpKey = "autoBackUp";
+    const string restoreBackUpKey = "restoreBackUp";
 
     [Header("UIItems")]
     [SerializeField] private InputField capsulesAddInputField;
@@ -22,10 +24,17 @@ public class ControlCoffeeCapsules : MonoBehaviour
     [SerializeField] private Button editCapsulesKitButton;
     [SerializeField] private Button decalcificationButton;
     [SerializeField] private Text fileDataPathText;
+    [SerializeField] private Button showBackUpPanel;
+    // BackUp Panel
     [SerializeField] private GameObject backUpPanel;
     [SerializeField] private InputField fileSourceInputField;
     [SerializeField] private InputField fileBackUpInputField;
-    [SerializeField] private Button showSaveFileBackUpnButton;
+    [SerializeField] private Button chooseDirBackUpButton;
+    [SerializeField] private Button backUpButton;
+    [SerializeField] private Button restoreBackUpButton;
+    [SerializeField] private Button closeBackUpButton;
+    [SerializeField] private Toggle autoBackUpToggle;
+    [SerializeField] private Toggle restoreBackUpToggle;
     [Header("Other")]
     [SerializeField] private Color[] colorsInfo;
     [Header("Debug")]
@@ -33,6 +42,8 @@ public class ControlCoffeeCapsules : MonoBehaviour
     [SerializeField] private string fileBackUpDataPath;
     [SerializeField] private ControlData controlData;
     [SerializeField] private int capsulesRemain;
+    [SerializeField] private bool autoBackUp;
+    [SerializeField] private bool restoreBackUp;
 
     private void OnEnable()
     {
@@ -42,7 +53,13 @@ public class ControlCoffeeCapsules : MonoBehaviour
         editCapsulesKitButton.onClick.AddListener(EditCapsulesKit);
         capsulesKitInputField.onValueChanged.AddListener(ChangeCapsulesKit);
         decalcificationButton.onClick.AddListener(Decalcification);
-        showSaveFileBackUpnButton.onClick.AddListener(ShowSaveFileBackUp);
+        showBackUpPanel.onClick.AddListener(ShowBackUpPanel);
+        chooseDirBackUpButton.onClick.AddListener(ShowSaveFileBackUp);
+        backUpButton.onClick.AddListener(BackUp);
+        restoreBackUpButton.onClick.AddListener(RestoreBackUp);
+        closeBackUpButton.onClick.AddListener(HidePanelsStart);
+        autoBackUpToggle.onValueChanged.AddListener(ChangeAutoBackUp);
+        restoreBackUpToggle.onValueChanged.AddListener(ChangeRestoreBackUp);
     }
 
     private void OnDisable()
@@ -53,7 +70,13 @@ public class ControlCoffeeCapsules : MonoBehaviour
         editCapsulesKitButton.onClick.RemoveListener(EditCapsulesKit);
         capsulesKitInputField.onValueChanged.RemoveListener(ChangeCapsulesKit);
         decalcificationButton.onClick.RemoveListener(Decalcification);
-        showSaveFileBackUpnButton.onClick.RemoveListener(ShowSaveFileBackUp);
+        showBackUpPanel.onClick.RemoveListener(ShowBackUpPanel);
+        chooseDirBackUpButton.onClick.RemoveListener(ShowSaveFileBackUp);
+        backUpButton.onClick.RemoveListener(BackUp);
+        restoreBackUpButton.onClick.RemoveListener(RestoreBackUp);
+        closeBackUpButton.onClick.RemoveListener(HidePanelsStart);
+        autoBackUpToggle.onValueChanged.RemoveListener(ChangeAutoBackUp);
+        restoreBackUpToggle.onValueChanged.RemoveListener(ChangeRestoreBackUp);
     }
 
 #if UNITY_EDITOR
@@ -69,20 +92,34 @@ public class ControlCoffeeCapsules : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     IEnumerator Start()
     {
-        HiddenPanelsStart();
+        HidePanelsStart();
         DisableButtons();
 
         try
         {
-            SetFileDataPath();
-
+            LoadVarsIniciales();
             ShowFileDataPath();
+            ShowAutoBack();
 
-            var task = LoadDataAsync();
-
-            while (!task.IsCompleted)
+            if (!string.IsNullOrWhiteSpace(fileDataPath))
             {
-                yield return null;
+                if (!File.Exists(fileDataPath))
+                {
+                    if (restoreBackUp)
+                        if (!string.IsNullOrWhiteSpace(fileBackUpDataPath) && File.Exists(fileBackUpDataPath))
+                        {
+                            yield return RestoreBackUpCorountine();
+                        }
+                }
+                else
+                {
+                    Task t = LoadDataAsync();
+
+                    while (!t.IsCompleted)
+                    {
+                        yield return null;
+                    }
+                }
             }
 
             ShowCapsules();
@@ -95,7 +132,7 @@ public class ControlCoffeeCapsules : MonoBehaviour
         }
     }
 
-    private void HiddenPanelsStart()
+    private void HidePanelsStart()
     {
         backUpPanel.SetActive(false);
     }
@@ -106,7 +143,7 @@ public class ControlCoffeeCapsules : MonoBehaviour
         editCapsulesButton.interactable = true;
         editCapsulesKitButton.interactable = true;
         decalcificationButton.interactable = true;
-        showSaveFileBackUpnButton.interactable = true;
+        chooseDirBackUpButton.interactable = true;
     }
 
     void DisableButtons()
@@ -115,22 +152,32 @@ public class ControlCoffeeCapsules : MonoBehaviour
         editCapsulesButton.interactable = false;
         editCapsulesKitButton.interactable = false;
         decalcificationButton.interactable = false;
-        showSaveFileBackUpnButton.interactable = false;
+        chooseDirBackUpButton.interactable = false;
     }
 
-    void SetFileDataPath()
+    void LoadVarsIniciales()
     {
         fileDataPath = Path.Combine(Application.persistentDataPath, fileNameControlCoffeeCapsulesData);
         fileBackUpDataPath = PlayerPrefs.GetString(fileBackUpDataPathKey);
+        autoBackUp = PlayerPrefs.GetInt(autoBackUpKey) == 1;
+        restoreBackUp = PlayerPrefs.GetInt(restoreBackUpKey) == 1;
 
         Debug.Log($"FileDataPath: {fileDataPath}");
         Debug.Log($"FileBackUpDataPath: {fileBackUpDataPath}");
+        Debug.Log($"AutoBackUp: {autoBackUp}");
+        Debug.Log($"RestoreBackUp: {restoreBackUp}");
     }
 
     void ShowFileDataPath()
     {
         fileSourceInputField.text = fileDataPath;
         fileBackUpInputField.text = fileBackUpDataPath;
+    }
+
+    void ShowAutoBack()
+    {
+        autoBackUpToggle.isOn = autoBackUp;
+        restoreBackUpToggle.isOn = restoreBackUp;
     }
 
     async Task LoadDataAsync()
@@ -156,9 +203,15 @@ public class ControlCoffeeCapsules : MonoBehaviour
 
     async Task SaveDataAsync()
     {
+        if (string.IsNullOrWhiteSpace(fileDataPath))
+            return;
+
         await SaveDataAsync(fileDataPath);
-        if (!string.IsNullOrWhiteSpace(fileBackUpDataPath))
-            await SaveDataAsync(fileBackUpDataPath);
+        if (autoBackUp)
+        {
+            if (!string.IsNullOrWhiteSpace(fileBackUpDataPath))
+                await SaveDataAsync(fileBackUpDataPath);
+        }
     }
 
     private async Task SaveDataAsync(string file)
@@ -267,6 +320,16 @@ public class ControlCoffeeCapsules : MonoBehaviour
         await ChangeCapsules();
     }
 
+    void ShowBackUpPanel()
+    {
+        backUpPanel.SetActive(true);
+    }
+
+    void HideBackUpPanel()
+    {
+        backUpPanel.SetActive(false);
+    }
+
     void ShowSaveFileBackUp()
     {
         StartCoroutine(ShowSaveFileBackUpCoroutine());
@@ -282,12 +345,28 @@ public class ControlCoffeeCapsules : MonoBehaviour
         {
             fileBackUpInputField.text = fileBackUpDataPath = Path.Combine(FileBrowser.Result[0], fileNameControlCoffeeCapsulesData);
             PlayerPrefs.SetString(fileBackUpDataPathKey, fileBackUpDataPath);
-
-            Task t = SaveDataAsync();
-
-            while (!t.IsCompleted)
-                yield return null;
         }
+    }
+
+    void BackUp()
+    {
+        StartCoroutine(BackUpCorountine());
+    }
+
+    IEnumerator BackUpCorountine()
+    {
+        if (string.IsNullOrWhiteSpace(fileBackUpDataPath))
+            yield break;
+
+        Task t = SaveDataAsync(fileBackUpDataPath);
+
+        while (!t.IsCompleted)
+            yield return null;
+    }
+
+    void RestoreBackUp()
+    {
+        StartCoroutine(RestoreBackUpCorountine());
     }
 
     IEnumerator RestoreBackUpCorountine()
@@ -302,9 +381,30 @@ public class ControlCoffeeCapsules : MonoBehaviour
 
         controlData = t1.Result;
 
+        CalcCapsulesRemain();
+        ShowCapsules();
+        ShowCapsulesInfo();
+        ShowCapsulesKit();
+
+        if (string.IsNullOrWhiteSpace(fileDataPath))
+            yield break;
+
         var t2 = SaveDataAsync(fileDataPath);
 
         while (!t2.IsCompleted)
             yield return null;
     }
+
+    private void ChangeAutoBackUp(bool value)
+    {
+        autoBackUp = value;
+        PlayerPrefs.SetInt(autoBackUpKey, autoBackUp ? 1 : 0);
+    }
+
+    private void ChangeRestoreBackUp(bool value)
+    {
+        restoreBackUp = value;
+        PlayerPrefs.SetInt(restoreBackUpKey, restoreBackUp ? 1 : 0);
+    }
+
 }
