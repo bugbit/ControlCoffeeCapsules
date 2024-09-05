@@ -339,7 +339,7 @@ public class ControlCoffeeCapsules : MonoBehaviour
     {
         string fileBackUpDataDir = string.IsNullOrWhiteSpace(fileBackUpDataPath) ? null : Path.GetDirectoryName(fileBackUpDataPath);
 
-        yield return FileBrowser.WaitForSaveDialog(FileBrowser.PickMode.Folders, false, fileBackUpDataDir, fileBackUpDataPath, "Aceptar");
+        yield return FileBrowser.WaitForSaveDialog(FileBrowser.PickMode.Folders, false, fileBackUpDataDir, fileBackUpDataDir, "Aceptar");
 
         if (FileBrowser.Success)
         {
