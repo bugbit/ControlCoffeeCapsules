@@ -25,7 +25,6 @@ public class ControlCoffeeCapsules : MonoBehaviour
     [SerializeField] private Button decalcificationButton;
     [SerializeField] private Text fileDataPathText;
     [SerializeField] private Button showBackUpPanel;
-
     // BackUp Panel
     [SerializeField] private GameObject backUpPanel;
     [SerializeField] private InputField fileSourceInputField;
@@ -36,15 +35,8 @@ public class ControlCoffeeCapsules : MonoBehaviour
     [SerializeField] private Button closeBackUpButton;
     [SerializeField] private Toggle autoBackUpToggle;
     [SerializeField] private Toggle restoreBackUpToggle;
-
-    // Alert Panel
-    [SerializeField] private GameObject alertPanel;
-    [SerializeField] private Text alertText;
-    [SerializeField] private Button okButton;
-
     [Header("Other")]
     [SerializeField] private Color[] colorsInfo;
-
     [Header("Debug")]
     [SerializeField] private string fileDataPath;
     [SerializeField] private string fileBackUpDataPath;
@@ -365,8 +357,6 @@ public class ControlCoffeeCapsules : MonoBehaviour
     {
         if (string.IsNullOrWhiteSpace(fileBackUpDataPath))
             yield break;
-
-        FileBrowser.RequestPermission();
 
         Task t = SaveDataAsync(fileBackUpDataPath);
 
