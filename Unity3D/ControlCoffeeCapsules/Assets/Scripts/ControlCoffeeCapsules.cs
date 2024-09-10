@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using SimpleFileBrowser;
+using System.Runtime.InteropServices;
 
 public class ControlCoffeeCapsules : MonoBehaviour
 {
@@ -182,47 +183,79 @@ public class ControlCoffeeCapsules : MonoBehaviour
 
     async Task LoadDataAsync()
     {
-        ControlData sdpc = await LoadDataAsync(fileDataPath);
+        string jsonString;
+
+        try
+        {
+            using (StreamReader sr = new StreamReader(fileDataPath))
+            {
+                jsonString = await sr.ReadToEndAsync();
+                sr.Close();
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+
+            return;
+        }
+
+        ControlData sdpc = JsonUtility.FromJson<ControlData>(jsonString);
 
         controlData = sdpc;
         CalcCapsulesRemain();
     }
 
-    private static async Task<ControlData> LoadDataAsync(string file)
-    {
-        string jsonString;
-        using (StreamReader sr = new StreamReader(file))
-        {
-            jsonString = await sr.ReadToEndAsync();
-            sr.Close();
-        }
-
-        ControlData sdpc = JsonUtility.FromJson<ControlData>(jsonString);
-        return sdpc;
-    }
-
-    async Task SaveDataAsync()
+    async Task<bool> SaveDataAsync()
     {
         if (string.IsNullOrWhiteSpace(fileDataPath))
-            return;
+            return false;
 
-        await SaveDataAsync(fileDataPath);
-        if (autoBackUp)
+        string jsonString = JsonUtility.ToJson(controlData);
+        bool ok;
+
+        try
         {
-            if (!string.IsNullOrWhiteSpace(fileBackUpDataPath))
-                await SaveDataAsync(fileBackUpDataPath);
+            using (StreamWriter sw = new StreamWriter(fileDataPath))
+            {
+                await sw.WriteLineAsync(jsonString);
+                sw.Close();
+            }
         }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+
+            ok = false;
+        }
+
+        ok = true;
+        if (autoBackUp)
+            BackUp();
+
+        return ok;
     }
 
-    private async Task SaveDataAsync(string file)
+    private async Task<bool> SaveDataAsync(string file)
     {
         string jsonString = JsonUtility.ToJson(controlData);
 
-        using (StreamWriter sw = new StreamWriter(file))
+        try
         {
-            await sw.WriteLineAsync(jsonString);
-            sw.Close();
+            using (StreamWriter sw = new StreamWriter(file))
+            {
+                await sw.WriteLineAsync(jsonString);
+                sw.Close();
+            }
         }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+
+            return false;
+        }
+
+        return true;
     }
 
     void CalcCapsulesRemain()
@@ -339,29 +372,27 @@ public class ControlCoffeeCapsules : MonoBehaviour
     {
         string fileBackUpDataDir = string.IsNullOrWhiteSpace(fileBackUpDataPath) ? null : Path.GetDirectoryName(fileBackUpDataPath);
 
-        yield return FileBrowser.WaitForSaveDialog(FileBrowser.PickMode.Folders, false, fileBackUpDataDir, fileBackUpDataDir, "Aceptar");
+        FileBrowser.SetFilters(true, new FileBrowser.Filter("data", ".data"));
+        FileBrowser.SetDefaultFilter(".data");
+
+        yield return FileBrowser.WaitForSaveDialog(FileBrowser.PickMode.Files, false, fileBackUpDataDir, fileBackUpDataPath, "Aceptar");
 
         if (FileBrowser.Success)
         {
-            fileBackUpInputField.text = fileBackUpDataPath = Path.Combine(FileBrowser.Result[0], fileNameControlCoffeeCapsulesData);
+            fileBackUpInputField.text = fileBackUpDataPath = FileBrowser.Result[0];
             PlayerPrefs.SetString(fileBackUpDataPathKey, fileBackUpDataPath);
         }
     }
 
     void BackUp()
     {
-        StartCoroutine(BackUpCorountine());
-    }
-
-    IEnumerator BackUpCorountine()
-    {
+        //StartCoroutine(BackUpCorountine());
         if (string.IsNullOrWhiteSpace(fileBackUpDataPath))
-            yield break;
+            return;
 
-        Task t = SaveDataAsync(fileBackUpDataPath);
+        string jsonString = JsonUtility.ToJson(controlData);
 
-        while (!t.IsCompleted)
-            yield return null;
+        FileBrowserHelpers.WriteTextToFile(fileBackUpDataPath, jsonString);
     }
 
     void RestoreBackUp()
@@ -371,25 +402,21 @@ public class ControlCoffeeCapsules : MonoBehaviour
 
     IEnumerator RestoreBackUpCorountine()
     {
-        if (string.IsNullOrWhiteSpace(fileBackUpDataPath) || !File.Exists(fileBackUpDataPath))
+        if (string.IsNullOrWhiteSpace(fileBackUpDataPath) || !FileBrowserHelpers.FileExists(fileBackUpDataPath))
             yield break;
 
-        Task<ControlData> t1 = LoadDataAsync(fileBackUpDataPath);
+        string jsonString = FileBrowserHelpers.ReadTextFromFile(fileBackUpDataPath);
 
-        while (!t1.IsCompleted)
-            yield return null;
+        ControlData sdpc = JsonUtility.FromJson<ControlData>(jsonString);
 
-        controlData = t1.Result;
+        controlData = sdpc;
 
         CalcCapsulesRemain();
         ShowCapsules();
         ShowCapsulesInfo();
         ShowCapsulesKit();
 
-        if (string.IsNullOrWhiteSpace(fileDataPath))
-            yield break;
-
-        var t2 = SaveDataAsync(fileDataPath);
+        var t2 = SaveDataAsync();
 
         while (!t2.IsCompleted)
             yield return null;
