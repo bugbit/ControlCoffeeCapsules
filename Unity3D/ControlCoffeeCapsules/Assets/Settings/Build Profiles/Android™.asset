@@ -207,7 +207,7 @@ MonoBehaviour:
     - line: '|   ForceInternetPermission: 0'
     - line: '|   ForceSDCardPermission: 0'
     - line: '|   CreateWallpaper: 0'
-    - line: '|   androidSplitApplicationBinary: 0'
+    - line: '|   androidSplitApplicationBinary: 1'
     - line: '|   keepLoadedShadersAlive: 0'
     - line: '|   StripUnusedMeshComponents: 0'
     - line: '|   strictShaderVariantMatching: 0'
@@ -290,8 +290,8 @@ MonoBehaviour:
     - line: '|   AndroidTargetArchitectures: 2'
     - line: '|   AndroidSplashScreenScale: 0'
     - line: '|   androidSplashScreen: {instanceID: 0}'
-    - line: '|   AndroidKeystoreName: '
-    - line: '|   AndroidKeyaliasName: '
+    - line: '|   AndroidKeystoreName: ''{inproject}: Publish/Android/user.keystore'''
+    - line: '|   AndroidKeyaliasName: microbytkonami'
     - line: '|   AndroidEnableArmv9SecurityFeatures: 0'
     - line: '|   AndroidEnableArm64MTE: 0'
     - line: '|   AndroidBuildApkPerCpuArchitecture: 0'
@@ -300,13 +300,13 @@ MonoBehaviour:
     - line: '|   AndroidEnableTango: 0'
     - line: '|   androidEnableBanner: 1'
     - line: '|   androidUseLowAccuracyLocation: 0'
-    - line: '|   androidUseCustomKeystore: 0'
+    - line: '|   androidUseCustomKeystore: 1'
     - line: '|   m_AndroidBanners:'
     - line: '|   - width: 320'
     - line: '|     height: 180'
     - line: '|     banner: {instanceID: 0}'
     - line: '|   androidGamepadSupportLevel: 0'
-    - line: '|   AndroidMinifyRelease: 0'
+    - line: '|   AndroidMinifyRelease: 1'
     - line: '|   AndroidMinifyDebug: 0'
     - line: '|   AndroidValidateAppBundleSize: 1'
     - line: '|   AndroidAppBundleSizeToValidate: 150'
@@ -888,6 +888,6 @@ MonoBehaviour:
         m_DebugSymbolFormat: 5
         m_CurrentDeploymentTargetId: __builtin__target_default
         m_BuildType: 2
-        m_BuildAppBundle: 0
+        m_BuildAppBundle: 1
         m_IPAddressToConnect: 
         m_SymlinkSources: 0
