@@ -30,9 +30,9 @@
       "depth": 0,
       "source": "builtin",
       "dependencies": {
-        "com.unity.mobile.android-logcat": "1.4.1",
+        "com.unity.mobile.android-logcat": "1.4.4",
         "com.unity.adaptiveperformance": "5.1.0",
-        "com.unity.mobile.notifications": "2.3.2"
+        "com.unity.mobile.notifications": "2.4.0"
       }
     },
     "com.unity.ide.visualstudio": {
@@ -45,20 +45,28 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.mobile.android-logcat": {
-      "version": "1.4.1",
+      "version": "1.4.4",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.mobile.notifications": {
-      "version": "2.3.2",
+      "version": "2.4.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.androidjni": "1.0.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "com.unity.multiplayer.center": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.uielements": "1.0.0"
+      }
     },
     "com.unity.profiling.core": {
       "version": "1.0.2",
@@ -84,7 +92,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.test-framework": {
-      "version": "1.4.4",
+      "version": "1.4.5",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -95,7 +103,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.toolchain.win-x86_64-linux-x86_64": {
-      "version": "2.0.9",
+      "version": "2.0.10",
       "depth": 0,
       "source": "registry",
       "dependencies": {

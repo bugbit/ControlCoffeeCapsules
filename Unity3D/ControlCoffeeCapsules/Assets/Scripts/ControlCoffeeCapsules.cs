@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 using SimpleFileBrowser;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Diagnostics.CodeAnalysis;
 
 public class ControlCoffeeCapsules : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class ControlCoffeeCapsules : MonoBehaviour
     const string restoreBackUpKey = "restoreBackUp";
 
     [Header("UIItems")]
+    [SerializeField] private Text VersionText;
     [SerializeField] private InputField capsulesAddInputField;
     [SerializeField] private InputField capsulesInputField;
     [SerializeField] private InputField capsulesKitInputField;
@@ -93,6 +96,7 @@ public class ControlCoffeeCapsules : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     IEnumerator Start()
     {
+        VersionText.text = Application.version;
         HidePanelsStart();
         DisableButtons();
 
@@ -281,8 +285,24 @@ public class ControlCoffeeCapsules : MonoBehaviour
         {
             float percent = controlData.CapsulesToKit == 0 ? 0 : Mathf.Clamp((100 * controlData.Capsules / controlData.CapsulesToKit * 100) / 100f, 0, 100);
             int index = Mathf.Clamp((int)percent / (100 / colorsInfo.Length), 0, colorsInfo.Length - 1);
+            var strBuilder = new StringBuilder();
 
-            capsulesInfoText.text = controlData is null ? "" : string.Format("Quedan: {0} {1}%", capsulesRemain, percent);
+            if (controlData is not null)
+            {
+                strBuilder.Append("Quedan: ");
+                strBuilder.Append(capsulesRemain);
+                strBuilder.Append(" ");
+                strBuilder.Append(percent);
+                strBuilder.Append("%");
+                strBuilder.AppendLine();
+                if (controlData.CapsulesTime is not null && controlData.CapsulesTime.Count > 0)
+                {
+                    strBuilder.Append("Última cápsula: ");
+                    strBuilder.Append(((DateTime)controlData.CapsulesTime[^1]).ToString("dd/MM/yyyy"));
+                }
+            }
+            //capsulesInfoText.text = controlData is null ? "" : string.Format("Quedan: {0} {1}%", capsulesRemain, percent);
+            capsulesInfoText.text = strBuilder.ToString();
             capsulesInfoText.color = colorsInfo[index];
         }
     }
@@ -294,6 +314,8 @@ public class ControlCoffeeCapsules : MonoBehaviour
         controlData ??= new();
 
         controlData.Capsules += capsulesToAdd;
+        controlData.CapsulesTime ??= new();
+        controlData.CapsulesTime.Add((JsonDateTime)DateTime.Now);
 
         await ChangeCapsules();
     }
@@ -349,6 +371,7 @@ public class ControlCoffeeCapsules : MonoBehaviour
             return;
 
         controlData.Capsules = 0;
+        controlData.CapsulesTime?.Clear();
 
         await ChangeCapsules();
     }

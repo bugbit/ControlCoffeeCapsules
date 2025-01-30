@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 15003, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: "Android\u2122"
+  m_Name: Google Play
   m_EditorClassIdentifier: 
+  m_AssetVersion: 1
   m_BuildTarget: 13
   m_Subtarget: 0
   m_PlatformId: b9b35072a6f44c2e863f17467ea3dc13
   m_PlatformBuildProfile:
     rid: 278578336645513387
+  m_OverrideGlobalSceneList: 0
   m_Scenes: []
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
@@ -39,7 +41,7 @@ MonoBehaviour:
     - line: '|   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b:
         0.1254902, a: 1}'
     - line: '|   m_ShowUnitySplashScreen: 1'
-    - line: '|   m_ShowUnitySplashLogo: 1'
+    - line: '|   m_ShowUnitySplashLogo: 0'
     - line: '|   m_SplashScreenOverlayOpacity: 1'
     - line: '|   m_SplashScreenAnimation: 1'
     - line: '|   m_SplashScreenLogoStyle: 1'
@@ -61,7 +63,8 @@ MonoBehaviour:
     - line: '|     width: 1'
     - line: '|     height: 1'
     - line: '|   m_SplashScreenLogos: []'
-    - line: '|   m_VirtualRealitySplashScreen: {instanceID: 0}'
+    - line: '|   m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 4195bb2f44aec6f4197d1faf91f09154,
+        type: 3}'
     - line: '|   m_HolographicTrackingLossScreen: {instanceID: 0}'
     - line: '|   defaultScreenWidth: 1920'
     - line: '|   defaultScreenHeight: 1080'
@@ -70,6 +73,7 @@ MonoBehaviour:
     - line: '|   m_StereoRenderingPath: 0'
     - line: '|   m_ActiveColorSpace: 0'
     - line: '|   unsupportedMSAAFallback: 0'
+    - line: '|   m_SpriteBatchMaxVertexCount: 65535'
     - line: '|   m_SpriteBatchVertexThreshold: 300'
     - line: '|   m_MTRendering: 1'
     - line: '|   mipStripping: 0'
@@ -81,8 +85,8 @@ MonoBehaviour:
     - line: '|   iosUseCustomAppBackgroundBehavior: 0'
     - line: '|   allowedAutorotateToPortrait: 1'
     - line: '|   allowedAutorotateToPortraitUpsideDown: 1'
-    - line: '|   allowedAutorotateToLandscapeRight: 1'
-    - line: '|   allowedAutorotateToLandscapeLeft: 1'
+    - line: '|   allowedAutorotateToLandscapeRight: 0'
+    - line: '|   allowedAutorotateToLandscapeLeft: 0'
     - line: '|   useOSAutorotation: 1'
     - line: '|   use32BitDisplayBuffer: 1'
     - line: '|   preserveFramebufferAlpha: 0'
@@ -91,19 +95,18 @@ MonoBehaviour:
     - line: '|   androidRenderOutsideSafeArea: 1'
     - line: '|   androidUseSwappy: 1'
     - line: '|   androidBlitType: 2'
-    - line: '|   androidResizableWindow: 0'
+    - line: '|   androidResizeableActivity: 0'
     - line: '|   androidDefaultWindowWidth: 1920'
     - line: '|   androidDefaultWindowHeight: 1080'
     - line: '|   androidMinimumWindowWidth: 400'
     - line: '|   androidMinimumWindowHeight: 300'
     - line: '|   androidFullscreenMode: 1'
     - line: '|   androidAutoRotationBehavior: 1'
-    - line: '|   androidApplicationEntry: 2'
     - line: '|   androidPredictiveBackSupport: 0'
+    - line: '|   androidApplicationEntry: 2'
     - line: '|   defaultIsNativeResolution: 1'
     - line: '|   macRetinaSupport: 1'
     - line: '|   runInBackground: 1'
-    - line: '|   captureSingleScreen: 0'
     - line: '|   muteOtherAudioSources: 0'
     - line: '|   Prepare IOS For Recording: 0'
     - line: '|   Force IOS Speakers When Recording: 0'
@@ -161,7 +164,7 @@ MonoBehaviour:
     - line: '|   loadStoreDebugModeEnabled: 0'
     - line: '|   visionOSBundleVersion: 1.0'
     - line: '|   tvOSBundleVersion: 1.0'
-    - line: '|   bundleVersion: 1.0.2'
+    - line: '|   bundleVersion: 1.1.0'
     - line: '|   preloadedAssets: []'
     - line: '|   metroInputSource: 0'
     - line: '|   wsaTransparentSwapchain: 0'
@@ -171,7 +174,7 @@ MonoBehaviour:
     - line: '|   vrSettings:'
     - line: '|     enable360StereoCapture: 0'
     - line: '|   isWsaHolographicRemotingEnabled: 0'
-    - line: '|   enableFrameTimingStats: 1'
+    - line: '|   enableFrameTimingStats: 0'
     - line: '|   enableOpenGLProfilerGPURecorders: 1'
     - line: '|   allowHDRDisplaySupport: 0'
     - line: '|   useHDRDisplay: 0'
@@ -184,7 +187,7 @@ MonoBehaviour:
     - line: '|   androidMaxAspectRatio: 2.1'
     - line: '|   androidMinAspectRatio: 1'
     - line: '|   applicationIdentifier:'
-    - line: '|     Android: com.microbyt.controlcoffeCapsules'
+    - line: '|     Android: com.microbyt.controlcoffeecapsules'
     - line: '|     Lumin: com.DefaultCompany.com.unity.template.mobile2D'
     - line: '|     Standalone: com.DefaultCompany.com.unity.template.mobile2D'
     - line: '|     iPhone: com.DefaultCompany.com.unity.template.mobile2D'
@@ -207,7 +210,7 @@ MonoBehaviour:
     - line: '|   ForceInternetPermission: 0'
     - line: '|   ForceSDCardPermission: 0'
     - line: '|   CreateWallpaper: 0'
-    - line: '|   androidSplitApplicationBinary: 1'
+    - line: '|   androidSplitApplicationBinary: 0'
     - line: '|   keepLoadedShadersAlive: 0'
     - line: '|   StripUnusedMeshComponents: 0'
     - line: '|   strictShaderVariantMatching: 0'
@@ -289,9 +292,10 @@ MonoBehaviour:
     - line: '|   useCustomProguardFile: 0'
     - line: '|   AndroidTargetArchitectures: 2'
     - line: '|   AndroidSplashScreenScale: 0'
-    - line: '|   androidSplashScreen: {instanceID: 0}'
-    - line: '|   AndroidKeystoreName: ''{inproject}: Publish/Android/user.keystore'''
-    - line: '|   AndroidKeyaliasName: microbytkonami'
+    - line: '|   androidSplashScreen: {fileID: 2800000, guid: 4195bb2f44aec6f4197d1faf91f09154,
+        type: 3}'
+    - line: '|   AndroidKeystoreName: '
+    - line: '|   AndroidKeyaliasName: '
     - line: '|   AndroidEnableArmv9SecurityFeatures: 0'
     - line: '|   AndroidEnableArm64MTE: 0'
     - line: '|   AndroidBuildApkPerCpuArchitecture: 0'
@@ -300,7 +304,7 @@ MonoBehaviour:
     - line: '|   AndroidEnableTango: 0'
     - line: '|   androidEnableBanner: 1'
     - line: '|   androidUseLowAccuracyLocation: 0'
-    - line: '|   androidUseCustomKeystore: 1'
+    - line: '|   androidUseCustomKeystore: 0'
     - line: '|   m_AndroidBanners:'
     - line: '|   - width: 320'
     - line: '|     height: 180'
@@ -476,6 +480,7 @@ MonoBehaviour:
     - line: '|   playModeTestRunnerEnabled: 0'
     - line: '|   runPlayModeTestAsEditModeTest: 0'
     - line: '|   actionOnDotNetUnhandledException: 1'
+    - line: '|   editorGfxJobOverride: 1'
     - line: '|   enableInternalProfiler: 0'
     - line: '|   logObjCUncaughtExceptions: 1'
     - line: '|   enableCrashReportAPI: 0'
@@ -705,8 +710,10 @@ MonoBehaviour:
     - line: '|   ps4IncludedModules: []'
     - line: '|   ps4attribVROutputEnabled: 0'
     - line: '|   monoEnv: '
-    - line: '|   splashScreenBackgroundSourceLandscape: {instanceID: 0}'
-    - line: '|   splashScreenBackgroundSourcePortrait: {instanceID: 0}'
+    - line: '|   splashScreenBackgroundSourceLandscape: {fileID: 21300000, guid:
+        4195bb2f44aec6f4197d1faf91f09154, type: 3}'
+    - line: '|   splashScreenBackgroundSourcePortrait: {fileID: 21300000, guid: 4195bb2f44aec6f4197d1faf91f09154,
+        type: 3}'
     - line: '|   blurSplashScreenBackground: 1'
     - line: '|   spritePackerPolicy: '
     - line: '|   webGLMemorySize: 32'
@@ -769,7 +776,7 @@ MonoBehaviour:
     - line: '|   gcIncremental: 1'
     - line: '|   gcWBarrierValidation: 0'
     - line: '|   apiCompatibilityLevelPerPlatform: {}'
-    - line: '|   editorAssembliesCompatibilityLevel: 1'
+    - line: '|   editorAssembliesCompatibilityLevel: 2'
     - line: '|   m_RenderingPath: 1'
     - line: '|   m_MobileRenderingPath: 1'
     - line: '|   metroPackageName: ControlCoffeeCapsules'
@@ -863,6 +870,8 @@ MonoBehaviour:
     - line: '|   platformRequiresReadableAssets: 0'
     - line: '|   virtualTexturingSupportEnabled: 0'
     - line: '|   insecureHttpOption: 0'
+    - line: '|   androidVulkanDenyFilterList: []'
+    - line: '|   androidVulkanAllowFilterList: []'
     - line: '| '
   references:
     version: 2
