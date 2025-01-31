@@ -289,7 +289,7 @@ public class ControlCoffeeCapsules : MonoBehaviour
 
             if (controlData is not null)
             {
-                strBuilder.Append("Quedan: ");
+                strBuilder.Append("Left: ");
                 strBuilder.Append(capsulesRemain);
                 strBuilder.Append(" ");
                 strBuilder.Append(percent);
@@ -297,7 +297,7 @@ public class ControlCoffeeCapsules : MonoBehaviour
                 strBuilder.AppendLine();
                 if (controlData.CapsulesTime is not null && controlData.CapsulesTime.Count > 0)
                 {
-                    strBuilder.Append("Última cápsula: ");
+                    strBuilder.Append("Last capsule: ");
                     strBuilder.Append(((DateTime)controlData.CapsulesTime[^1]).ToString("dd/MM/yyyy"));
                 }
             }
