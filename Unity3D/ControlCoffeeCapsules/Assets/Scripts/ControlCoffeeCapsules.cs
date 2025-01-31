@@ -29,7 +29,9 @@ public class ControlCoffeeCapsules : MonoBehaviour
     [SerializeField] private Button decalcificationButton;
     [SerializeField] private Text fileDataPathText;
     [SerializeField] private Button showBackUpPanel;
+    [SerializeField] private Button showCapsulesPanel;
     // BackUp Panel
+    [Header("UIItems BackUp")]
     [SerializeField] private GameObject backUpPanel;
     [SerializeField] private InputField fileSourceInputField;
     [SerializeField] private InputField fileBackUpInputField;
@@ -39,6 +41,10 @@ public class ControlCoffeeCapsules : MonoBehaviour
     [SerializeField] private Button closeBackUpButton;
     [SerializeField] private Toggle autoBackUpToggle;
     [SerializeField] private Toggle restoreBackUpToggle;
+    // Capsules Panel
+    [Header("UIItems Capsules")]
+    [SerializeField] private GameObject capsulesPanel;
+    [SerializeField] private Button closeCapsulesButton;
     [Header("Other")]
     [SerializeField] private Color[] colorsInfo;
     [Header("Debug")]
@@ -58,12 +64,14 @@ public class ControlCoffeeCapsules : MonoBehaviour
         capsulesKitInputField.onValueChanged.AddListener(ChangeCapsulesKit);
         decalcificationButton.onClick.AddListener(Decalcification);
         showBackUpPanel.onClick.AddListener(ShowBackUpPanel);
+        showCapsulesPanel.onClick.AddListener(ShowCapsulesPanel);
         chooseDirBackUpButton.onClick.AddListener(ShowSaveFileBackUp);
         backUpButton.onClick.AddListener(BackUp);
         restoreBackUpButton.onClick.AddListener(RestoreBackUp);
-        closeBackUpButton.onClick.AddListener(HidePanelsStart);
+        closeBackUpButton.onClick.AddListener(HideBackUpPanel);
         autoBackUpToggle.onValueChanged.AddListener(ChangeAutoBackUp);
         restoreBackUpToggle.onValueChanged.AddListener(ChangeRestoreBackUp);
+        closeCapsulesButton.onClick.AddListener(HideCapsulesPanel);
     }
 
     private void OnDisable()
@@ -75,12 +83,14 @@ public class ControlCoffeeCapsules : MonoBehaviour
         capsulesKitInputField.onValueChanged.RemoveListener(ChangeCapsulesKit);
         decalcificationButton.onClick.RemoveListener(Decalcification);
         showBackUpPanel.onClick.RemoveListener(ShowBackUpPanel);
+        showCapsulesPanel.onClick.RemoveListener(ShowCapsulesPanel);
         chooseDirBackUpButton.onClick.RemoveListener(ShowSaveFileBackUp);
         backUpButton.onClick.RemoveListener(BackUp);
         restoreBackUpButton.onClick.RemoveListener(RestoreBackUp);
-        closeBackUpButton.onClick.RemoveListener(HidePanelsStart);
+        closeBackUpButton.onClick.RemoveListener(HideBackUpPanel);
         autoBackUpToggle.onValueChanged.RemoveListener(ChangeAutoBackUp);
         restoreBackUpToggle.onValueChanged.RemoveListener(ChangeRestoreBackUp);
+        closeCapsulesButton.onClick.RemoveListener(HideCapsulesPanel);
     }
 
 #if UNITY_EDITOR
@@ -97,7 +107,8 @@ public class ControlCoffeeCapsules : MonoBehaviour
     IEnumerator Start()
     {
         VersionText.text = Application.version;
-        HidePanelsStart();
+        HideBackUpPanel();
+        HideCapsulesPanel();
         DisableButtons();
 
         try
@@ -135,11 +146,6 @@ public class ControlCoffeeCapsules : MonoBehaviour
         {
             EnableButtons();
         }
-    }
-
-    private void HidePanelsStart()
-    {
-        backUpPanel.SetActive(false);
     }
 
     void EnableButtons()
@@ -457,4 +463,13 @@ public class ControlCoffeeCapsules : MonoBehaviour
         PlayerPrefs.SetInt(restoreBackUpKey, restoreBackUp ? 1 : 0);
     }
 
+    void ShowCapsulesPanel()
+    {
+        capsulesPanel.SetActive(true);
+    }
+
+    void HideCapsulesPanel()
+    {
+        capsulesPanel.SetActive(false);
+    }
 }
