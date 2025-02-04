@@ -606,6 +606,10 @@ MonoBehaviour:
   dateText: {fileID: 3474818255561624826}
   date:
     value: 0
+  delButton: {fileID: 5526188327594475214}
+  DelCapsuleItem:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5746858099874365833
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ using SimpleFileBrowser;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Diagnostics.CodeAnalysis;
+using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class ControlCoffeeCapsules : MonoBehaviour
 {
@@ -55,9 +57,27 @@ public class ControlCoffeeCapsules : MonoBehaviour
     [SerializeField] private bool autoBackUp;
     [SerializeField] private bool restoreBackUp;
 
+    public UnityEvent<ICollection<JsonDateTime>> ChangeCapsulesTimes;
+
+    public async Task AddCapsuleTimeAsync(JsonDateTime time)
+    {
+        controlData.CapsulesTime ??= new();
+        controlData.CapsulesTime.Add(time);
+
+        await ChangeCapsules();
+    }
+
+    public async Task delCapsuleTimeAsync(JsonDateTime time)
+    {
+        controlData.CapsulesTime ??= new();
+        controlData.CapsulesTime.Remove(time);
+
+        await ChangeCapsules();
+    }
+
     private void OnEnable()
     {
-        addCapsulesButton.onClick.AddListener(AddCapsules);
+        addCapsulesButton.onClick.AddListener(AddCapsulesAsync);
         editCapsulesButton.onClick.AddListener(EditCapsules);
         capsulesInputField.onValueChanged.AddListener(ChangeCapsules);
         editCapsulesKitButton.onClick.AddListener(EditCapsulesKit);
@@ -76,7 +96,7 @@ public class ControlCoffeeCapsules : MonoBehaviour
 
     private void OnDisable()
     {
-        addCapsulesButton.onClick.RemoveListener(AddCapsules);
+        addCapsulesButton.onClick.RemoveListener(AddCapsulesAsync);
         editCapsulesButton.onClick.RemoveListener(EditCapsules);
         capsulesInputField.onValueChanged.RemoveListener(ChangeCapsules);
         editCapsulesKitButton.onClick.RemoveListener(EditCapsulesKit);
@@ -313,21 +333,20 @@ public class ControlCoffeeCapsules : MonoBehaviour
         }
     }
 
-    async void AddCapsules()
+    async void AddCapsulesAsync()
     {
         int capsulesToAdd = int.Parse(capsulesAddInputField.text);
 
         controlData ??= new();
 
         controlData.Capsules += capsulesToAdd;
-        controlData.CapsulesTime ??= new();
-        controlData.CapsulesTime.Add((JsonDateTime)DateTime.Now);
 
-        await ChangeCapsules();
+        await AddCapsuleTimeAsync((JsonDateTime)DateTime.Now);
     }
 
     private async Task ChangeCapsules()
     {
+        ChangeCapsulesTimes.Invoke(controlData.CapsulesTime ?? new List<JsonDateTime>());
         await SaveDataAsync();
         CalcCapsulesRemain();
 

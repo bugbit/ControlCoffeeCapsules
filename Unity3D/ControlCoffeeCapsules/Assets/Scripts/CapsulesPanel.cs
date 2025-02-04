@@ -6,6 +6,8 @@ using Random = UnityEngine.Random;
 
 public class CapsulesPanel : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] private ControlCoffeeCapsules controlCoffeeCapsules;
     [Header("UIItems")]
     [SerializeField] private Transform contentCapsulesList;
     [SerializeField] private GameObject capsuleItemPrefab;
@@ -51,8 +53,9 @@ public class CapsulesPanel : MonoBehaviour
     {
         var transform = contentCapsulesList.transform;
         var i = 0;
+        var count = Math.Min(capsulesTime.Length, transform.childCount);
 
-        for (; i < transform.childCount; i++)
+        for (i = 0; i < count; i++)
         {
             var child = transform.GetChild(i);
             var capsuleTime = capsulesTime[i];
@@ -66,7 +69,16 @@ public class CapsulesPanel : MonoBehaviour
             var child = Instantiate(capsuleItemPrefab, transform);
 
             if (child.TryGetComponent<CapsuleItem>(out var item))
+            {
                 item.SetDate(capsuleTime);
+                item.OnDeletedCapsuleItem.AddListener(async d => await controlCoffeeCapsules.delCapsuleTimeAsync(d));
+            }
+        }
+        for (; i < transform.childCount; i++)
+        {
+            var child = transform.GetChild(i);
+
+            Destroy(child.gameObject);
         }
         if (capsuleItemPrefab.TryGetComponent<RectTransform>(out var rectItem))
             if (contentCapsulesList.TryGetComponent<RectTransform>(out var rectContent))
