@@ -164,8 +164,12 @@ MonoBehaviour:
     - line: '|   loadStoreDebugModeEnabled: 0'
     - line: '|   visionOSBundleVersion: 1.0'
     - line: '|   tvOSBundleVersion: 1.0'
-    - line: '|   bundleVersion: 1.1.0'
-    - line: '|   preloadedAssets: []'
+    - line: '|   bundleVersion: 1.1.1'
+    - line: '|   preloadedAssets:'
+    - line: '|   - {fileID: 11400000, guid: 8ecc77573db2f7c40bdb164735ee393a, type:
+        2}'
+    - line: '|   - {fileID: 4179547591742903470, guid: 5ecf123edb0d6e542b98d32769cc9445,
+        type: 2}'
     - line: '|   metroInputSource: 0'
     - line: '|   wsaTransparentSwapchain: 0'
     - line: '|   m_HolographicPauseOnTrackingLoss: 1'
@@ -187,7 +191,7 @@ MonoBehaviour:
     - line: '|   androidMaxAspectRatio: 2.1'
     - line: '|   androidMinAspectRatio: 1'
     - line: '|   applicationIdentifier:'
-    - line: '|     Android: com.microbyt.controlcoffeecapsules'
+    - line: '|     Android: com.microbyt.controlcoffeCapsules'
     - line: '|     Lumin: com.DefaultCompany.com.unity.template.mobile2D'
     - line: '|     Standalone: com.DefaultCompany.com.unity.template.mobile2D'
     - line: '|     iPhone: com.DefaultCompany.com.unity.template.mobile2D'
@@ -199,7 +203,7 @@ MonoBehaviour:
     - line: '|     iPhone: 0'
     - line: '|     tvOS: 0'
     - line: '|   overrideDefaultApplicationIdentifier: 1'
-    - line: '|   AndroidBundleVersionCode: 1'
+    - line: '|   AndroidBundleVersionCode: 2'
     - line: '|   AndroidMinSdkVersion: 23'
     - line: '|   AndroidTargetSdkVersion: 0'
     - line: '|   AndroidPreferredInstallLocation: 1'
@@ -290,12 +294,12 @@ MonoBehaviour:
     - line: '|   useCustomGradlePropertiesTemplate: 0'
     - line: '|   useCustomGradleSettingsTemplate: 0'
     - line: '|   useCustomProguardFile: 0'
-    - line: '|   AndroidTargetArchitectures: 2'
+    - line: '|   AndroidTargetArchitectures: 3'
     - line: '|   AndroidSplashScreenScale: 0'
     - line: '|   androidSplashScreen: {fileID: 2800000, guid: 4195bb2f44aec6f4197d1faf91f09154,
         type: 3}'
-    - line: '|   AndroidKeystoreName: '
-    - line: '|   AndroidKeyaliasName: '
+    - line: '|   AndroidKeystoreName: ''{inproject}: Publish/Android/user.keystore'''
+    - line: '|   AndroidKeyaliasName: microbytkonami'
     - line: '|   AndroidEnableArmv9SecurityFeatures: 0'
     - line: '|   AndroidEnableArm64MTE: 0'
     - line: '|   AndroidBuildApkPerCpuArchitecture: 0'
@@ -304,7 +308,7 @@ MonoBehaviour:
     - line: '|   AndroidEnableTango: 0'
     - line: '|   androidEnableBanner: 1'
     - line: '|   androidUseLowAccuracyLocation: 0'
-    - line: '|   androidUseCustomKeystore: 0'
+    - line: '|   androidUseCustomKeystore: 1'
     - line: '|   m_AndroidBanners:'
     - line: '|   - width: 320'
     - line: '|     height: 180'
@@ -855,7 +859,7 @@ MonoBehaviour:
     - line: '|   hmiCpuConfiguration: '
     - line: '|   hmiLogStartupTiming: 0'
     - line: '|   qnxGraphicConfPath: '
-    - line: '|   apiCompatibilityLevel: 3'
+    - line: '|   apiCompatibilityLevel: 6'
     - line: '|   captureStartupLogs: {}'
     - line: '|   activeInputHandler: 0'
     - line: '|   windowsGamepadBackendHint: 0'
@@ -893,7 +897,7 @@ MonoBehaviour:
         m_BuildSubtarget: 0
         m_BuildSystem: 1
         m_ExportAsGoogleAndroidProject: 0
-        m_DebugSymbolLevel: 1
+        m_DebugSymbolLevel: 4
         m_DebugSymbolFormat: 5
         m_CurrentDeploymentTargetId: __builtin__target_default
         m_BuildType: 2
