@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.unity.adaptiveperformance.google.android": "5.1.4",
+    "com.unity.adaptiveperformance.google.android": "5.1.6",
     "com.unity.feature.mobile": "1.0.0",
     "com.unity.ide.visualstudio": "2.0.23",
     "com.unity.multiplayer.center": "1.0.0",
