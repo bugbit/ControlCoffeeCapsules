@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace SimpleFileBrowser
 {
 	public class FileBrowserContextMenu : MonoBehaviour
 	{
-#pragma warning disable 0649
 		[SerializeField]
 		private FileBrowser fileBrowser;
 
@@ -29,13 +29,12 @@ namespace SimpleFileBrowser
 		[SerializeField]
 		private LayoutElement[] allButtonLayoutElements;
 		[SerializeField]
-		private Text[] allButtonTexts;
+		private TextMeshProUGUI[] allButtonTexts;
 		[SerializeField]
 		private Image[] allButtonSeparators;
 
 		[SerializeField]
 		private float minDistanceToEdges = 10f;
-#pragma warning restore 0649
 
 		private void Awake()
 		{

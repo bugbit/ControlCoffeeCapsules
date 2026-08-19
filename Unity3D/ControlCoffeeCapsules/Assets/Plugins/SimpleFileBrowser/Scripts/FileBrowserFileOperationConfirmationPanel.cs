@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
@@ -13,12 +14,11 @@ namespace SimpleFileBrowser
 
 		public delegate void OnOperationConfirmed();
 
-#pragma warning disable 0649
 		[SerializeField]
 		private VerticalLayoutGroup contentLayoutGroup;
 
 		[SerializeField]
-		private Text[] titleLabels;
+		private TextMeshProUGUI[] titleLabels;
 
 		[SerializeField]
 		private GameObject[] targetItems;
@@ -27,13 +27,13 @@ namespace SimpleFileBrowser
 		private Image[] targetItemIcons;
 
 		[SerializeField]
-		private Text[] targetItemNames;
+		private TextMeshProUGUI[] targetItemNames;
 
 		[SerializeField]
 		private GameObject targetItemsRest;
 
 		[SerializeField]
-		private Text targetItemsRestLabel;
+		private TextMeshProUGUI targetItemsRestLabel;
 
 		[SerializeField]
 		private Button yesButton;
@@ -43,7 +43,6 @@ namespace SimpleFileBrowser
 
 		[SerializeField]
 		private float narrowScreenWidth = 380f;
-#pragma warning restore 0649
 
 		private OnOperationConfirmed onOperationConfirmed;
 
