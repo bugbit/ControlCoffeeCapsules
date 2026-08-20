@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
@@ -9,16 +10,14 @@ namespace SimpleFileBrowser
 {
 	public class FileBrowserAccessRestrictedPanel : MonoBehaviour
 	{
-#pragma warning disable 0649
 		[SerializeField]
 		private HorizontalLayoutGroup contentLayoutGroup;
 
 		[SerializeField]
-		private Text messageLabel;
+		private TextMeshProUGUI messageLabel;
 
 		[SerializeField]
 		private Button okButton;
-#pragma warning restore 0649
 
 		private void Awake()
 		{
